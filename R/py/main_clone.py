@@ -7,18 +7,20 @@ import matplotlib.pyplot as plt
 from matplotlib import colormaps, pyplot as plt
 
 # INPUTS
+
 # Choices of Country Border geojson Resolutions.
 resolution_choices = ["01M", "03M", "10M", "30M", "60M"]
 
 # resolution_choices[4] is 60M
 res = resolution_choices[4]
 
-# Choose country from ISO code
+# Choose country from gisco code
 # country = "US"
 # EL=Greece, Can always lookup via world_country_borders geojson linked below.
-country = "FI"
+country = "US"
+continent = "na"  # na=North America, sa=South America, au=Australia, eu=Europe
 
-continent = "eu"  # na=North America, sa=South America, au=Australia, eu=Europe
+# End of Inputs
 
 
 def CreateMap(country, continent, res):
@@ -27,6 +29,7 @@ def CreateMap(country, continent, res):
         f"https://gisco-services.ec.europa.eu/distribution/v2/countries/geojson/CNTR_RG_{res}_2020_4326.geojson")
     print(f"Filtering Country Border for: {country}")
     country_border = world_country_borders[world_country_borders["CNTR_ID"] == country]
+    country_name = country_border.NAME_ENGL.values[0]
 
     # Clip US border to just CONUS - excludes Alaska, etc.
     if country == "US":
@@ -107,19 +110,26 @@ def CreateMap(country, continent, res):
 
     # PLOT
     print("Setup Plot")
+    plt.title(country_name)
     fig, ax = plt.subplots(figsize=(7, 7.75))
-    country_river_basin.plot(ax=ax, column='HYBAS_ID', cmap=colormaps['twilight'],
-                             linewidth=country_river_basin['width'],
+    country_river_basin.plot(ax=ax,
+                             #  column='HYBAS_ID',
+                             column='MAIN_RIV',
+                             cmap=colormaps['twilight'],
+                             linewidth=country_river_basin['width']*3,
                              #  edgecolor='black',
                              #  alpha=country_river_basin['width'],
                              categorical=True,
-                             #  legend=True
+                             #  legend=True,
+                             title=country
                              )
     ax.set_axis_off()
 
     print("Save Plot")
     fig.savefig(f'{country}-river-basins.png', dpi=600,
                 bbox_inches='tight', pad_inches=0, transparent=True)
+
+    # End CreateMap Function
 
 
 # Create Map
