@@ -14,7 +14,7 @@ resolution_choices = ["01M", "03M", "10M", "30M", "60M"]
 # resolution_choices[4] is 60M
 res = resolution_choices[4]
 
-# Choose country from gisco code
+# Choose country from gisco code: "CNTR_ID"
 # country = "US"
 # EL=Greece, Can always lookup via world_country_borders geojson linked below.
 country = "US"
@@ -29,6 +29,9 @@ def CreateMap(country, continent, res):
         f"https://gisco-services.ec.europa.eu/distribution/v2/countries/geojson/CNTR_RG_{res}_2020_4326.geojson")
     print(f"Filtering Country Border for: {country}")
     country_border = world_country_borders[world_country_borders["CNTR_ID"] == country]
+    if len(country_border) != 1:
+        raise ValueError(
+            f"Country code: {country} - May be incorrect check world_country_borders for a correct 'CNTR_ID'.")
     country_name = country_border.NAME_ENGL.values[0]
 
     # Clip US border to just CONUS - excludes Alaska, etc.
@@ -43,10 +46,13 @@ def CreateMap(country, continent, res):
     print(f"Getting Watershed Basin for Continent: {continent}")
     url = f"https://data.hydrosheds.org/file/HydroBASINS/standard/hybas_{continent}_lev03_v1c.zip"
     file_name = url.split("/")[-1]
-
-    r = requests.get(url)
-    with open(file_name, 'wb') as outfile:
-        outfile.write(r.content)
+    try:
+        r = requests.get(url)
+        with open(file_name, 'wb') as outfile:
+            outfile.write(r.content)
+    except:
+        raise ConnectionRefusedError(
+            f"Unable to Download Watersheds for Continent: {continent}. Check Continent Code.")
 
     with zipfile.ZipFile(file_name, 'r') as zip_ref:
         zip_ref.extractall()
@@ -62,9 +68,13 @@ def CreateMap(country, continent, res):
     url = f"https://data.hydrosheds.org/file/HydroRIVERS/HydroRIVERS_v10_{continent}_shp.zip"
     file_name = url.split("/")[-1]
 
-    r = requests.get(url)
-    with open(file_name, 'wb') as outfile:
-        outfile.write(r.content)
+    try:
+        r = requests.get(url)
+        with open(file_name, 'wb') as outfile:
+            outfile.write(r.content)
+    except:
+        raise ConnectionRefusedError(
+            f"Unable to Download Rivers for Continent: {continent}. Check Continent Code.")
 
     with zipfile.ZipFile(file_name, 'r') as zip_ref:
         zip_ref.extractall()
@@ -121,7 +131,6 @@ def CreateMap(country, continent, res):
                              #  alpha=country_river_basin['width'],
                              categorical=True,
                              #  legend=True,
-                             title=country
                              )
     ax.set_axis_off()
 
