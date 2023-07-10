@@ -13,3 +13,10 @@ sa/HydroRIVERS_v10_sa_shp/HydroRIVERS_v10_sa.*
 sa/hybas_sa_lev03_v1c.*
 *.zip
 *.pdf
+*.sbn
+*.shp
+*.sbx
+*.shx
+*.prj
+*.dbf
+*.xml
