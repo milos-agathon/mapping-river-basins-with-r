@@ -1,7 +1,7 @@
 # Fork of Mapping river basins with R
 forked from: https://github.com/milos-agathon/mapping-river-basins-with-r/blob/main/brazil-basins.png?raw=true
 
-This forked repo converts the funcitonality of Milo's R script, and uses Python instead. It also adds the capability to be able to run any Country to the map the river basins for dynamically.
+This forked repo converts the funcitonality of Milo's R script, and uses Python instead. It also adds the capability to be able to map any Country dynamically.
 
 # py/Main.py
 Just update the inputs in py/main.py to any country, continent, resolution wanted.
