@@ -20,3 +20,4 @@ sa/hybas_sa_lev03_v1c.*
 *.prj
 *.dbf
 *.xml
+.vscode/launch.json
