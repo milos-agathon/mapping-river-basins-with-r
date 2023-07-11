@@ -21,3 +21,4 @@ sa/hybas_sa_lev03_v1c.*
 *.dbf
 *.xml
 .vscode/launch.json
+py/api-key.txt
