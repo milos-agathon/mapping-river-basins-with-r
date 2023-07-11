@@ -121,6 +121,12 @@ def CreateMap(country_name, country_border, continent):
                 os.remove(f)
             except:
                 pass
+    unzip_directory = file_name.replace(".", "_")
+    if os.path.exists(unzip_directory):
+        try:
+            os.rmdir(unzip_directory)
+        except:
+            pass
 
     # RIVER WIDTH config
     country_river_basin['ORD_FLOW'].unique()
@@ -170,7 +176,7 @@ def CreateMap(country_name, country_border, continent):
     ax.set_axis_off()
 
     print("Save Plot")
-    fig.savefig(f'{country}-river-basins.png', dpi=600,
+    fig.savefig(f'{country_name}-river-basins.png', dpi=600,
                 bbox_inches='tight', pad_inches=0, transparent=True)
 
     # End CreateMap Function
