@@ -1,12 +1,14 @@
-# Fork of Mapping river basins with R
-forked from: https://github.com/milos-agathon/mapping-river-basins-with-r/blob/main/brazil-basins.png?raw=true
+# Mapping river basins with R
 
-This forked repo converts the funcitonality of Milo's R script, and uses Python instead. It also adds the capability to be able to map any Country dynamically.
+In this tutorial, I will show you how to use HydroSHEDS data to create a beautiful and informative map of Brazil’s river basins. You will learn how to download, process and visualize the HydroSHEDS data. By the end of this tutorial, you will be able to create your own river basin maps for any region in the world. Ready to dive in? Let’s get started! 🌎🌊
+
+[https://github.com/milos-agathon/mapping-river-basins-with-r/blob/main/brazil-basins.png?raw=true]
 
 # py/Main.py
+This repo by Myles McManus @mylesmc123 converts the functionality of my R script, and uses Python instead. It also adds the capability to be able to map any Country dynamically.
 Just update the inputs in py/main.py to any country, continent, resolution wanted.
 
-Country codes are based on the world_country_borders privded by Gisco as key: "CNTR_ID". 
+Country codes are based on the world_country_borders provided by Gisco as key: "CNTR_ID". 
 Source: https://gisco-services.ec.europa.eu/distribution/v2/countries/geojson/CNTR_RG_60M_2020_4326.geojson
 
 ## Example Inputs:
